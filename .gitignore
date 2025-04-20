@@ -1,0 +1,20 @@
+# -------------------------
+# 🔹 Backend (Node.js + Express)
+# -------------------------
+backend/node_modules/
+# backend/.env
+backend/.env.local
+backend/.env.development
+backend/.env.production
+backend/.env.test
+backend/dist/
+backend/build/
+
+# -------------------------
+# 🔹 Frontend (React + Tailwind)
+# -------------------------
+frontend/node_modules/
+
+# MongoDB Data (if any)
+backend/*.db
+backend/dump.rdb
