@@ -19,7 +19,7 @@ const RecipeControllers = {
          existedPages: totalPagesCount,
          currentPages: page,
          loopableLinks: [],
-      };
+      }; 
       for(let i = 0; i < links.existedPages; i++ ){
          let number = i + 1;
          links.loopableLinks.push({number})

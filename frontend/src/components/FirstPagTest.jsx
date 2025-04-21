@@ -1,57 +1,48 @@
 import React from "react";
 import { Link } from "react-router";
+
 export default function Pagination({ links, selectedPage }) {
   const totalPages = links.existedPages;
   const currentPages = links.currentPages;
   const nextPage = links.nextPage;
   const prevPage = links.prevPage;
-  const scrollToTop = () => {
-    window.scroll({
-      top: 0,
-      left: 100,
-      behavior: "smooth",
-    });
-  };
+  console.log(prevPage);
+  console.log(nextPage);
   const generatePagination = () => {
-    let newLinks = new Set();
-    // adding first , second and third number
-    newLinks.add(1);
-    if (totalPages >= 2) newLinks.add(2);
-    if (totalPages >= 2) newLinks.add(3);
+    let links = new Set();
 
-    //adding left and right number near current page
+    //first one
+    links.add(1);
+    if (totalPages >= 2) links.add(2);
+
     if (nextPage && prevPage) {
+      // round number
       for (let i = currentPages - 1; i <= currentPages + 1; i++) {
-        if (i > 0 && i <= totalPages) {
-          newLinks.add(i);
-        }
+        links.add(i);
       }
     }
-    
-    // adding last and near two one
 
-    if (totalPages >= 3) newLinks.add(totalPages - 2);
-    if (totalPages >= 2) newLinks.add(totalPages - 1);
-    if(totalPages) newLinks.add(totalPages);
+    // final one
+    links.add(totalPages - 1);
+    links.add(totalPages);
+    let pages = Array.from(links).sort((a, b) => a - b);
+    console.log("array " + pages);
+    let finalOne = [];
 
-    let pages = Array.from(newLinks).sort((a, b) => a - b);
-    console.log("page" + pages);
-    // 1, 2, 3,  5
-    // adding "..." between
-    let finalPages = [];
+    // adding ...
     let lastPage = 0;
-    for (let currentPage of pages) {
-      if (currentPage - lastPage > 1) {
-        finalPages.push("...");
+    // 1, 2, 3, 7 diffference 1  when > 1 let's add ...
+    for (let page of pages) {
+      if (page - lastPage > 1) {
+        finalOne.push("...");
       }
-      finalPages.push(currentPage);
-      lastPage = currentPage;
+      finalOne.push(page);
+      lastPage = page;
     }
-    return finalPages;
+    return finalOne;
   };
-
+  
   let pages = generatePagination();
-  console.log(pages);
 
   return (
     <>
@@ -68,7 +59,13 @@ export default function Pagination({ links, selectedPage }) {
               className={`join-item btn ${
                 links.prevPage ? "" : "btn-disabled"
               }`}
-              onClick={scrollToTop}
+              onClick={() => {
+                window.scroll({
+                  top: 0,
+                  left: 100,
+                  behavior: "smooth",
+                });
+              }}
             >
               «
             </button>
@@ -106,7 +103,13 @@ export default function Pagination({ links, selectedPage }) {
               className={`join-item btn ${
                 links.nextPage ? "" : "btn-disabled"
               }`}
-              onClick={scrollToTop}
+              onClick={() => {
+                window.scroll({
+                  top: 0,
+                  left: 100,
+                  behavior: "smooth",
+                });
+              }}
             >
               »
             </button>
