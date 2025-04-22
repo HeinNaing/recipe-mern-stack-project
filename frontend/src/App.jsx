@@ -10,7 +10,7 @@ export default function App() {
           <Navbar />
         </div>
       </div>
-      <div className="max-h-full px-20 py-5">
+      <div className=" px-20 py-5">
         <Outlet />
       </div>
     </div>

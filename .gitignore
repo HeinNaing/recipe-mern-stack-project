@@ -13,6 +13,7 @@ backend/build/
 # 🔹 Frontend (React + Tailwind)
 # -------------------------
 frontend/node_modules/
+frontend/*.env
 
 # MongoDB Data (if any)
 backend/*.db

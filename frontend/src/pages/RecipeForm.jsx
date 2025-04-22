@@ -3,6 +3,7 @@ import plus from "../assets/plus.svg";
 import Ingredients from "./../components/Ingredients";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import showErrorMessage from "../components/ErrorMessage";
 export default function RecipeForm() {
   const navigate = useNavigate();
   let [ingredients, setIngredients] = React.useState([]);
@@ -38,33 +39,12 @@ export default function RecipeForm() {
     }
   };
   return (
-    <div className="h-screen mx-auto max-w-md">
-      <h1 className="text-primary text-2xl text-center"> Recipe Form</h1>
+    <div className=" min-h-[700px] flex flex-col justify-center items-center">
+      <h1 className="text-primary text-2xl text-center font-bold"> Recipe Form</h1>
       <form onSubmit={createRecipe}>
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xl border p-10 mt-10 mx-auto max-w-md gap-5 ">
           {/* <legend className="fieldset-legend"><Log></Log>in</legend> */}
-          {
-            !!error.length && (
-              <div className="alert alert-error shadow-lg mb-4">
-                <div className="flex">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="stroke-current flex-shrink-0 h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 8v4m0 4h.01M12 4a8 8 0 100 16 8 8 0 000-16z"
-                    />
-                  </svg>
-                  <span className="ml-2">{error.join(", ")} is invalid </span>
-                </div>
-              </div>
-            )
-          }
+          {!!error.length && showErrorMessage(error)}
           <input
             type="text"
             className="input w-full"

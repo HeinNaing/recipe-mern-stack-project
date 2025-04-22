@@ -88,6 +88,7 @@ export default function Pagination({ links, selectedPage }) {
                   className={`join-item btn ${
                     selectedPage == one ? "bg-primary" : ""
                   }`}
+                  onClick={scrollToTop}
                 >
                   {one}
                 </button>
