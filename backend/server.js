@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const recipesRoutes = require("./routes/recipes");
 const usersRoutes = require('./routes/users');
+const AuthMiddleware = require("./middlewares/AuthMiddleware");
 app.use(
   cors({
     origin: 'http://localhost:5173',
@@ -33,7 +34,7 @@ mongoose
 
 //Middleware
 app.use(morgan('dev'));
-app.use('/api/recipes', recipesRoutes);
+app.use('/api/recipes', AuthMiddleware, recipesRoutes);
 app.use('/api/user', usersRoutes);
 
 app.get("/" , (req, res) => {

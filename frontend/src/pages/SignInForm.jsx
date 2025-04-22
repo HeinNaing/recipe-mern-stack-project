@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import showErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router";
 
@@ -7,6 +8,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  let { dispatch } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const login = async (e) => {
     try {
@@ -15,13 +18,14 @@ export default function Login() {
         email,
         password,
       };
-      let result = await axios.post("/api/user/login", data, {
+      let response = await axios.post("/api/user/login", data, {
         withCredentials: true,
       });
-      if (result.status === 200) {
+      if (response.status === 200) {
+        dispatch({ type: "LOGIN", payload: { user: response.data.data } });
         navigate("/");
       }
-      console.log(result);
+      console.log(response);
     } catch (e) {
       console.log(e.response.data.error);
       setError(e.response.data.error);

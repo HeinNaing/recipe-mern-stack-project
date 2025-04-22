@@ -8,7 +8,7 @@ const userControllers = {
     let user = req.user;
     res.status(200).json({
       status: 'SUCCESS',
-      message: 'User found',  
+      message: 'User found',
       data: user,
     });
   },
@@ -69,6 +69,18 @@ const userControllers = {
         message: 'User created successfully',
         user: newUser,
         token: token,
+      });
+    } catch (e) {
+      return res.status(400).json({
+        error: e.message,
+      });
+    }
+  },
+  logout:  (req, res) => {
+    try {
+      res.cookie('jwt', '', { maxAge: 1 });
+      return res.status(200).json({
+        message: 'Logout successful',
       });
     } catch (e) {
       return res.status(400).json({

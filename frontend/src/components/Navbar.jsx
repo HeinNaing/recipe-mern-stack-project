@@ -1,26 +1,26 @@
 import React, { useEffect, useState, useContext } from "react";
-import { NavLink, Link } from "react-router";
+import { NavLink, Link, useNavigate } from "react-router";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 export default function Navbar() {
+  const navigate = useNavigate();
   const [username, setUserName] = useState(null);
-  let {name} = useContext(AuthContext);
-  console.log(name);
+  let { user, dispatch } = useContext(AuthContext);
+  let logout = async () => {
+    let response = await axios.get("/api/user/logout", {
+      withCredentials: true,
+    });
+    console.log(response);
+    if (response.status === 200) {
+      dispatch({ type: "LOGOUT" });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get("/api/user/me", {
-          withCredentials: true,
-        });
-        console.log(response.data.data.username);
-        setUserName(response.data.data.username);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchUser();
-  }, []);
+      navigate("/sign-in");
+
+      setUserName(null);
+      console.log("Logout successful");
+    }
+  };
+
   return (
     <nav className="flex justify-between px-5 py-6 ">
       <div>
@@ -57,8 +57,11 @@ export default function Navbar() {
           to="/recipes/create"
           className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
         >
-          {username}
+          {user?.data?.username && <h1>{user?.data?.username}</h1>}
+
         </NavLink>
+
+        <button onClick={logout}>Logout</button>
       </div>
     </nav>
   );
