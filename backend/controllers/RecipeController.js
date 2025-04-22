@@ -12,8 +12,9 @@ const RecipeControllers = {
       //    if (skip >= count) throw new Error('This page does not exist');
       // }
       let totalPagesCount = Math.ceil(count / limit);
+
       let links = {
-         nextPage: totalPagesCount == page ? false : true,
+         nextPage: totalPagesCount <= page ? false : true,
          prevPage: page == 1 ? false : true,
          totalData: count,
          existedPages: totalPagesCount,

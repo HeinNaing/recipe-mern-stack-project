@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { NavLink, Link } from "react-router";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 export default function Navbar() {
   const [username, setUserName] = useState(null);
+  let {name} = useContext(AuthContext);
+  console.log(name);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
