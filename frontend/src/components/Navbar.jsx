@@ -29,39 +29,43 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="flex gap-4 text-[18px] font-semibold text-gray-500">
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
-        >
-          Home
-        </NavLink>
-        <NavLink
-          to="/sign-in"
-          className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to="/sign-up"
-          className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
-        >
-          Sign Up
-        </NavLink>
-        <NavLink
-          to="/recipes/create"
-          className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
-        >
-          Create
-        </NavLink>
-        <NavLink
-          to="/recipes/create"
-          className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
-        >
-          {user?.data?.username && <h1>{user?.data?.username}</h1>}
+        {user?.data?.username && (
+          <>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/recipes/create"
+              className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
+            >
+              Create
+            </NavLink>
+            <h1>{user?.data?.username}</h1>
+            <NavLink>
+              <button onClick={logout}>Logout</button>
+            </NavLink>
+          </>
+        )}
 
-        </NavLink>
-
-        <button onClick={logout}>Logout</button>
+        {!user?.data && (
+          <>
+            <NavLink
+              to="/sign-in"
+              className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to="/sign-up"
+              className={({ isActive }) => (isActive ? " text-amber-600 " : "")}
+            >
+              Sign Up
+            </NavLink>
+          </>
+        )}
       </div>
     </nav>
   );

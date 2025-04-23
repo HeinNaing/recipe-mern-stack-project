@@ -16,19 +16,19 @@ const AuthContextProvider = ({ children }) => {
   };
   let [state, dispatch] = useReducer(AuthReducer, { user: null });
   useEffect(() => {
-    axios
-      .get("/api/user/me", { withCredentials: true })
-      .then((res) => {
+    try {
+      axios.get("/api/user/me", { withCredentials: true }).then((res) => {
         const userData = res.data; // only the actual user object
         if (userData) {
           dispatch({ type: "LOGIN", payload: userData });
         } else {
           dispatch({ type: "LOGOUT" });
         }
-      })
-      .catch((e) => {
-        dispatch({ type: "LOGOUT" });
       });
+    } catch (e) {
+      dispatch({ type: "LOGOUT" });
+    }
+
   }, []);
 
   return (
