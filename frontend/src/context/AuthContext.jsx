@@ -1,19 +1,20 @@
 import { createContext, useEffect, useReducer } from "react";
 import axios from "../helpers/axios";
 const AuthContext = createContext();
+let AuthReducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      // localStorage.setItem("user", JSON.stringify(action.payload));
+      return { user: action.payload };
+    case "LOGOUT":
+      // localStorage.removeItem('user');
+      return { user: null };
+    default:
+      return state;
+  }
+};
 const AuthContextProvider = ({ children }) => {
-  const AuthReducer = (state, action) => {
-    switch (action.type) {
-      case "LOGIN":
-        // localStorage.setItem("user", JSON.stringify(action.payload));
-        console.log(action.payload);
-        return { user: action.payload };
-      case "LOGOUT":
-        return { user: null };
-      default:
-        return state;
-    }
-  };
+
   let [state, dispatch] = useReducer(AuthReducer, { user: null });
   useEffect(() => {
     try {

@@ -2,15 +2,15 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import showErrorMessage from "../components/ErrorMessage";
-import { useNavigate } from "react-router";
+import { Link, useNavigate, Navigate } from "react-router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  let { dispatch } = useContext(AuthContext);
+  let { user, dispatch } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
   const login = async (e) => {
     try {
       e.preventDefault();
@@ -21,11 +21,15 @@ export default function Login() {
       let response = await axios.post("/api/user/login", data, {
         withCredentials: true,
       });
+      console.log(response.status);
       if (response.status === 200) {
-        dispatch({ type: "LOGIN", payload: { user: response.data.data } });
-        navigate("/");
+        dispatch({ type: "LOGIN", payload:  response.data.data });
+
+        console.log(user)
+        if(user){
+          navigate("/");
+        }
       }
-      console.log(response);
     } catch (e) {
       console.log(e.response.data.error);
       setError(e.response.data.error);
@@ -62,9 +66,12 @@ export default function Login() {
             placeholder="Password"
           />
 
+              <button className="btn btn-primary mt-4" type="submit">
+                  Login
+                </button>
+
           {error && showErrorMessage(error)}
 
-          <button className="btn btn-primary mt-4">Login</button>
         </fieldset>
       </form>
     </div>

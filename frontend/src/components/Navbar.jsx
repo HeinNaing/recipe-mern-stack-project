@@ -29,7 +29,7 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="flex gap-4 text-[18px] font-semibold text-gray-500">
-        {user?.data?.username && (
+        {user && (
           <>
             <NavLink
               to="/"
@@ -50,7 +50,7 @@ export default function Navbar() {
           </>
         )}
 
-        {!user?.data && (
+        {!user&& (
           <>
             <NavLink
               to="/sign-in"

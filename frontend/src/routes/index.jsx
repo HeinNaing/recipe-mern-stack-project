@@ -15,19 +15,19 @@ export default function index() {
       <Route path="/" element={<App />}>
         <Route
           index
-          element={user?.data ? <Home /> : <Navigate to={"/sign-in"} />}
+          element={<Home />}
         />
         <Route
           path="sign-in"
-          element={!user?.data ? <SignInForm /> : <Navigate to={"/"} />}
+          element={!user? <SignInForm /> : <Navigate to={"/"} />}
         />
         <Route
           path="sign-up"
-          element={!user?.data ? <SignUpForm /> : <Navigate to={"/"} />}
+          element={!user? <SignUpForm /> : <Navigate to={"/"} />}
         />
         <Route
           path="recipes/create"
-          element={user?.data ? <RecipeForm /> : <Navigate to={"/sign-in"} />}
+          element={user? <RecipeForm /> : <Navigate to={"/sign-in"} />}
         />
       </Route>
     </Routes>
