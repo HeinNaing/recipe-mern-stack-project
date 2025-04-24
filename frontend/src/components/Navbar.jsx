@@ -6,6 +6,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [username, setUserName] = useState(null);
   let { user, dispatch } = useContext(AuthContext);
+  // console.log(JSON.stringify(user));
   let logout = async () => {
     let response = await axios.get("/api/user/logout", {
       withCredentials: true,
@@ -43,14 +44,18 @@ export default function Navbar() {
             >
               Create
             </NavLink>
-            <h1>{user?.data?.username}</h1>
+            {user.username && (
+              <span className="text-amber-600 font-bold text-[18px]">
+                {user._id}
+              </span>
+            )}
             <NavLink>
               <button onClick={logout}>Logout</button>
             </NavLink>
           </>
         )}
 
-        {!user&& (
+        {!user && (
           <>
             <NavLink
               to="/sign-in"

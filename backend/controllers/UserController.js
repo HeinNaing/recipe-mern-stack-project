@@ -7,9 +7,7 @@ const userControllers = {
   me: async (req, res) => {
     let user = req.user;
     res.status(200).json({
-      status: 'SUCCESS',
-      message: 'User found',
-      data: user,
+      user
     });
   },
   getUsers: async (req, res) => {

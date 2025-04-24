@@ -35,7 +35,7 @@ export default function Pagination({ links, selectedPage }) {
     if(totalPages) newLinks.add(totalPages);
 
     let pages = Array.from(newLinks).sort((a, b) => a - b);
-    console.log("page" + pages);
+    // console.log("page" + pages);
     // 1, 2, 3,  5
     // adding "..." between
     let finalPages = [];
@@ -51,7 +51,7 @@ export default function Pagination({ links, selectedPage }) {
   };
 
   let pages = generatePagination();
-  console.log(pages);
+  // console.log(pages);
 
   return (
     <>

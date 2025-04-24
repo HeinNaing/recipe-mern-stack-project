@@ -16,7 +16,7 @@ export default function Home() {
   let searchQuery = new URLSearchParams(location.search);
   //preventing -1 input
   let selectedPage = Math.max(1, searchQuery.get("page") * 1 || 1);
-  console.log(result);
+  // console.log(result);
   useEffect(() => {
     let fetchRecipes = async () => {
       try {
@@ -25,7 +25,7 @@ export default function Home() {
         if (responses.status === 200) {
           const recipesData = responses.data.data;
           const recipesPageLink = responses.data.links;
-          console.log(recipesData);
+          // console.log(recipesData);
           setLoading(true);
 
           setLinks(recipesPageLink);

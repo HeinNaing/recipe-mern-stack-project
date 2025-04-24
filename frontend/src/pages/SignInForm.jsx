@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  let { user, dispatch } = useContext(AuthContext);
+  let { dispatch } = useContext(AuthContext);
 
   let navigate = useNavigate();
   const login = async (e) => {
@@ -23,12 +23,8 @@ export default function Login() {
       });
       console.log(response.status);
       if (response.status === 200) {
-        dispatch({ type: "LOGIN", payload:  response.data.data });
-
-        console.log(user)
-        if(user){
-          navigate("/");
-        }
+        dispatch({ type: "LOGIN", payload: response.data.data});
+        navigate("/");
       }
     } catch (e) {
       console.log(e.response.data.error);

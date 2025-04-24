@@ -19,7 +19,7 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     try {
       axios.get("/api/user/me", { withCredentials: true }).then((res) => {
-        const userData = res.data; // only the actual user object
+        const userData = res.data.user; // only the actual user object
         if (userData) {
           dispatch({ type: "LOGIN", payload: userData });
         } else {
